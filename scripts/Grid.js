@@ -50,10 +50,40 @@ class Grid {
     }
     var matchGemSE;
 
-    if (FIRE_SPRIT.isAlive()) {
+    if (CERBERUS.isAlive()) {
       matchGemSE = listMatchGem.find((gemMatch) => {
         return (
           gemMatch.type === GemType.BROWN || gemMatch.type === GemType.BLUE
+        );
+      });
+    }
+
+    if (CERBERUS.isAlive() == 0) {
+      matchGemSE = listMatchGem.find((gemMatch) => {
+        return (
+          gemMatch.type === GemType.RED ||
+          gemMatch.type === GemType.PURPLE ||
+          gemMatch.type === GemType.GREEN ||
+          gemMatch.type === GemType.YELLOW
+        );
+      });
+    }
+
+    if (FIRE_SPRIT.isAlive()) {
+      matchGemSE = listMatchGem.find((gemMatch) => {
+        return (
+          gemMatch.type === GemType.RED || gemMatch.type === GemType.PURPLE
+        );
+      });
+    }
+
+    if (FIRE_SPRIT.isAlive() == 0) {
+      matchGemSE = listMatchGem.find((gemMatch) => {
+        return (
+          gemMatch.type === GemType.GREEN ||
+          gemMatch.type === GemType.YELLOW ||
+          gemMatch.type === GemType.BROWN ||
+          gemMatch.type === GemType.BLUE
         );
       });
     }
@@ -66,15 +96,44 @@ class Grid {
       });
     }
 
+    if (SEA_SPIRIT.isAlive() == 0) {
+      matchGemSE = listMatchGem.find((gemMatch) => {
+        return (
+          gemMatch.type === GemType.BROWN ||
+          gemMatch.type === GemType.BLUE ||
+          gemMatch.type === GemType.RED ||
+          gemMatch.type === GemType.PURPLE
+        );
+      });
+    }
+
+    if (
+      SEA_SPIRIT.isAlive() &&
+      FIRE_SPRIT.isAlive() == 0 &&
+      CERBERUS.isAlive() == 0
+    ) {
+      matchGemSE = listMatchGem.find((gemMatch) => {
+        return (
+          gemMatch.type === GemType.SWORD ||
+          gemMatch.type === GemType.GREEN ||
+          gemMatch.type === GemType.YELLOW
+        );
+      });
+    }
+
     if (matchGemSE) {
       return matchGemSE.getIndexSwapGem();
     }
 
     let matchGem = listMatchGem.find((gemMatch) => {
       return (
+        gemMatch.type === GemType.SWORD ||
         gemMatch.type === GemType.RED ||
         gemMatch.type === GemType.PURPLE ||
-        gemMatch.type === GemType.SWORD
+        gemMatch.type === GemType.BROWN ||
+        gemMatch.type === GemType.BLUE ||
+        gemMatch.type === GemType.GREEN ||
+        gemMatch.type === GemType.YELLOW
         // && gemMatch.sizeMatch > 3
       );
     });
@@ -92,7 +151,7 @@ class Grid {
     }
 
     let matchGemSizeThanThree = listMatchGem.find(
-      (gemMatch) => gemMatch.sizeMatch > 3
+      (gemMatch) => gemMatch.sizeMatch > 2
     );
 
     if (matchGemSizeThanThree) {
@@ -101,15 +160,15 @@ class Grid {
 
     let matchGemModifier = listMatchGem.find((gemMatch) => {
       return (
-        gemMatch.type === GemModifier.NONE ||
-        gemMatch.type === GemModifier.MANA ||
-        gemMatch.type === GemModifier.HIT_POINT ||
-        gemMatch.type === GemModifier.BUFF_ATTACK ||
-        gemMatch.type === GemModifier.POINT ||
         gemMatch.type === GemModifier.EXTRA_TURN ||
-        gemMatch.type === GemModifier.EXPLODE_HORIZONTAL ||
+        gemMatch.type === GemModifier.EXPLODE_SQUARE ||
         gemMatch.type === GemModifier.EXPLODE_VERTICAL ||
-        gemMatch.type === GemModifier.EXPLODE_SQUARE
+        gemMatch.type === GemModifier.EXPLODE_HORIZONTAL ||
+        gemMatch.type === GemModifier.BUFF_ATTACK ||
+        gemMatch.type === GemModifier.HIT_POINT ||
+        gemMatch.type === GemModifier.MANA ||
+        gemMatch.type === GemModifier.POINT ||
+        gemMatch.type === GemModifier.NONE
       );
     });
 
@@ -222,7 +281,7 @@ class Grid {
         new GemSwapInfo(
           currentGem.index,
           swapGem.index,
-          matchGems.length,
+          matchGems.size,
           currentGem.type
         )
       );

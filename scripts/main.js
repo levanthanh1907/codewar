@@ -394,13 +394,17 @@ function StartTurn(param) {
   Object.keys(this.enemyPlayer.heroes).forEach(function (key) {
     console.log(this.enemyPlayer.heroes[key].id);
     if (
-      CERBERUS.isAlive() &&
-      CERBERUS.isFullMana() &&
+      FIRE_SPRIT.isAlive() &&
+      FIRE_SPRIT.isFullMana() &&
       (this.enemyPlayer.heroes[key].id === "CERBERUS" ||
         this.enemyPlayer.heroes[key].id === "THUNDER_GOD" ||
-        this.enemyPlayer.heroes[key].id === "SEA_GOD")
+        this.enemyPlayer.heroes[key].id === "SEA_GOD" ||
+        this.enemyPlayer.heroes[key].id === "FIRE_SPRIT" ||
+        this.enemyPlayer.heroes[key].id === "DISPATER" ||
+        this.enemyPlayer.heroes[key].id === "AIR_SPIRIT" ||
+        this.enemyPlayer.heroes[key].id === "MERMAID")
     ) {
-      SendCastSkill(CERBERUS, {
+      SendCastSkill(FIRE_SPRIT, {
         targetId: this.enemyPlayer.heroes[key].id.toString(),
       });
     }
@@ -418,12 +422,32 @@ function StartTurn(param) {
     }
     let heroFullMana = botPlayer.anyHeroFullMana();
 
+    if (
+      SEA_SPIRIT.isFullMana() &&
+      CERBERUS.isFullMana() &&
+      CERBERUS.isAlive()
+    ) {
+      SendCastSkill(SEA_SPIRIT, { targetId: CERBERUS.id.toString() });
+      return;
+    }
+
+    if (
+      SEA_SPIRIT.isFullMana() &&
+      FIRE_SPRIT.isFullMana() &&
+      FIRE_SPRIT.isAlive()
+    ) {
+      SendCastSkill(SEA_SPIRIT, { targetId: FIRE_SPRIT.id.toString() });
+      return;
+    }
+
     if (SEA_SPIRIT.isFullMana() && CERBERUS.isAlive()) {
       SendCastSkill(SEA_SPIRIT, { targetId: CERBERUS.id.toString() });
+      return;
     }
 
     if (SEA_SPIRIT.isFullMana() && FIRE_SPRIT.isAlive()) {
       SendCastSkill(SEA_SPIRIT, { targetId: FIRE_SPRIT.id.toString() });
+      return;
     }
 
     if (heroFullMana != null) {
