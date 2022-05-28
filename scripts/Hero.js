@@ -54,9 +54,13 @@ class Hero {
     return this.hp > 0;
   }
 
-  //   isDied() {
-  //     return (this.hp = 0);
-  //   }
+  isAttack() {
+    return this.attack > 15;
+  }
+
+  isDied() {
+    return this.hp < 1;
+  }
 
   isFullMana() {
     return this.mana >= this.maxMana;

@@ -50,6 +50,32 @@ class Grid {
     }
     var matchGemSE;
 
+    if (CERBERUS.isAlive() && CERBERUS.isAttack()) {
+      matchGemSE = listMatchGem.find((gemMatch) => {
+        return (
+          gemMatch.type === GemType.BROWN ||
+          gemMatch.type === GemType.BLUE ||
+          gemMatch.type === GemType.RED ||
+          gemMatch.type === GemType.PURPLE ||
+          gemMatch.type !== GemType.GREEN ||
+          gemMatch.type !== GemType.YELLOW
+        );
+      });
+    }
+
+    if (FIRE_SPRIT.isAlive() && FIRE_SPRIT.isAttack()) {
+      matchGemSE = listMatchGem.find((gemMatch) => {
+        return (
+          gemMatch.type === GemType.RED ||
+          gemMatch.type === GemType.PURPLE ||
+          gemMatch.type === GemType.BROWN ||
+          gemMatch.type === GemType.BLUE ||
+          gemMatch.type !== GemType.GREEN ||
+          gemMatch.type !== GemType.YELLOW
+        );
+      });
+    }
+
     if (CERBERUS.isAlive()) {
       matchGemSE = listMatchGem.find((gemMatch) => {
         return (
@@ -58,7 +84,7 @@ class Grid {
       });
     }
 
-    if (CERBERUS.isAlive() == 0) {
+    if (CERBERUS.isDied()) {
       matchGemSE = listMatchGem.find((gemMatch) => {
         return (
           gemMatch.type === GemType.RED ||
@@ -77,7 +103,7 @@ class Grid {
       });
     }
 
-    if (FIRE_SPRIT.isAlive() == 0) {
+    if (FIRE_SPRIT.isDied()) {
       matchGemSE = listMatchGem.find((gemMatch) => {
         return (
           gemMatch.type === GemType.GREEN ||
@@ -96,7 +122,7 @@ class Grid {
       });
     }
 
-    if (SEA_SPIRIT.isAlive() == 0) {
+    if (SEA_SPIRIT.isDied()) {
       matchGemSE = listMatchGem.find((gemMatch) => {
         return (
           gemMatch.type === GemType.BROWN ||
@@ -107,39 +133,18 @@ class Grid {
       });
     }
 
-    if (
-      SEA_SPIRIT.isAlive() &&
-      FIRE_SPRIT.isAlive() == 0 &&
-      CERBERUS.isAlive() == 0
-    ) {
+    if (SEA_SPIRIT.isAlive() && FIRE_SPRIT.isDied() && CERBERUS.isDied()) {
       matchGemSE = listMatchGem.find((gemMatch) => {
         return (
           gemMatch.type === GemType.SWORD ||
+          gemMatch.type === GemType.BLUE ||
+          gemMatch.type === GemType.BROWN ||
+          gemMatch.type === GemType.RED ||
+          gemMatch.type === GemType.PURPLE ||
           gemMatch.type === GemType.GREEN ||
           gemMatch.type === GemType.YELLOW
         );
       });
-    }
-
-    if (matchGemSE) {
-      return matchGemSE.getIndexSwapGem();
-    }
-
-    let matchGem = listMatchGem.find((gemMatch) => {
-      return (
-        gemMatch.type === GemType.SWORD ||
-        gemMatch.type === GemType.RED ||
-        gemMatch.type === GemType.PURPLE ||
-        gemMatch.type === GemType.BROWN ||
-        gemMatch.type === GemType.BLUE ||
-        gemMatch.type === GemType.GREEN ||
-        gemMatch.type === GemType.YELLOW
-        // && gemMatch.sizeMatch > 3
-      );
-    });
-
-    if (matchGem) {
-      return matchGem.getIndexSwapGem();
     }
 
     let matchGemSizeThanFour = listMatchGem.find(
@@ -148,6 +153,27 @@ class Grid {
 
     if (matchGemSizeThanFour) {
       return matchGemSizeThanFour.getIndexSwapGem();
+    }
+
+    if (matchGemSE) {
+      return matchGemSE.getIndexSwapGem();
+    }
+
+    let matchGem = listMatchGem.find((gemMatch) => {
+      return (
+        gemMatch.type === GemType.RED ||
+        gemMatch.type === GemType.PURPLE ||
+        gemMatch.type === GemType.BROWN ||
+        gemMatch.type === GemType.BLUE ||
+        gemMatch.type === GemType.SWORD ||
+        gemMatch.type === GemType.GREEN ||
+        gemMatch.type === GemType.YELLOW
+        // && gemMatch.sizeMatch > 3
+      );
+    });
+
+    if (matchGem) {
+      return matchGem.getIndexSwapGem();
     }
 
     let matchGemSizeThanThree = listMatchGem.find(
@@ -163,11 +189,11 @@ class Grid {
         gemMatch.type === GemModifier.EXTRA_TURN ||
         gemMatch.type === GemModifier.EXPLODE_SQUARE ||
         gemMatch.type === GemModifier.EXPLODE_VERTICAL ||
-        gemMatch.type === GemModifier.EXPLODE_HORIZONTAL ||
-        gemMatch.type === GemModifier.BUFF_ATTACK ||
-        gemMatch.type === GemModifier.HIT_POINT ||
-        gemMatch.type === GemModifier.MANA ||
-        gemMatch.type === GemModifier.POINT ||
+        // gemMatch.type === GemModifier.EXPLODE_HORIZONTAL ||
+        // gemMatch.type === GemModifier.BUFF_ATTACK ||
+        // gemMatch.type === GemModifier.HIT_POINT ||
+        // gemMatch.type === GemModifier.MANA ||
+        // gemMatch.type === GemModifier.POINT ||
         gemMatch.type === GemModifier.NONE
       );
     });

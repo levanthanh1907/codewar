@@ -401,8 +401,7 @@ function StartTurn(param) {
         this.enemyPlayer.heroes[key].id === "SEA_GOD" ||
         this.enemyPlayer.heroes[key].id === "FIRE_SPRIT" ||
         this.enemyPlayer.heroes[key].id === "DISPATER" ||
-        this.enemyPlayer.heroes[key].id === "AIR_SPIRIT" ||
-        this.enemyPlayer.heroes[key].id === "MERMAID")
+        this.enemyPlayer.heroes[key].id === "AIR_SPIRIT")
     ) {
       SendCastSkill(FIRE_SPRIT, {
         targetId: this.enemyPlayer.heroes[key].id.toString(),

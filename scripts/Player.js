@@ -11,8 +11,16 @@ class Player {
     return this.getHerosAlive().length;
   }
 
+  getTotalHeroAttack() {
+    return this.getHeroAttack().length;
+  }
+
   getHerosAlive() {
     return this.heroes.filter((hero) => hero.isAlive());
+  }
+
+  getHerosAttack() {
+    return this.heroes.filter((hero) => hero.isAttack());
   }
 
   getCastableHeros() {
@@ -30,6 +38,14 @@ class Player {
 
   firstHeroAlive() {
     let arr = this.heroes.filter((hero) => hero.isAlive());
+
+    let hero =
+      arr != null && arr != undefined && arr.length > 0 ? arr[0] : null;
+    return hero;
+  }
+
+  firstHeroAttack() {
+    let arr = this.heroes.filter((hero) => hero.isAttack());
 
     let hero =
       arr != null && arr != undefined && arr.length > 0 ? arr[0] : null;
